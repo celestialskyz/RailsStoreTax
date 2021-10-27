@@ -1,0 +1,15 @@
+<div>
+    <ul> 
+    <h3>Products</h3>
+    <% @products.each do |product| %>
+        <li>
+            <%= product.name%>
+            <%=number_to_currency(product.price)%>
+            <%= button_to "Add to cart", cart_items_path(:product_id => product.id), class: "add-product" %>
+        </li>
+    <% end%>
+    </ul>
+</div>
+<div>____________</div>
+<%= button_to 'Cart', cart_path(:action => "show", :id => @current_cart.id), class: "product-cart", :method => :get%>
+</div>

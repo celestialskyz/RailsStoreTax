@@ -1,0 +1,27 @@
+<div>
+<h1>Your Cart</h1>
+    <ul>
+    <div>
+    <%if @cart.cart_items.length === 0%>
+        No Items in Cart
+    <%else%>
+        <% @cart.cart_items.each do |item| %>
+        <li>
+            <%= item.product.name %>
+            <%= number_to_currency(item.product.price) %>
+            <div> Quantity <%=item.quantity %> </div>
+            <div>
+            <%= button_to "Add one more to Cart", add_plus1_item_path(:id => item.id), method: :post, class: "add-product" %>
+            <%= button_to "Remove from Cart", remove_1_item_path(:id => item.id), method: :delete, class: "remove-product" %>
+            </div>
+         </li>
+        <%end%>
+    <%end%>
+    </ul>
+    <h4>Tax: <%= number_to_currency(@cart.taxes_total) %></h4>
+    <h3>Total: <%= number_to_currency(@cart.cart_total) %></h3>
+    <%= button_to "Clear Cart", cart_path(@current_cart), method: :delete, data: {confirm: "You sure you want to clear cart?"} %>
+
+</div>
+
+<%=link_to 'Back to Products', products_path%>
